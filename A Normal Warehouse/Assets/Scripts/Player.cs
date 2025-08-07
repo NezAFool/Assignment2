@@ -1,46 +1,37 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 public class Player : MonoBehaviour
 {
-    Rigidbody2D controller;
-    private Vector2 move;
-    public float steps = 5f;
+    private Rigidbody2D controller;
+    private float move;
+    private Vector2 vec2;
+    public float speed = 5f;
     // Start is called before the first frame update
     void Start()
     {
         controller = GetComponent<Rigidbody2D>();
     }
 
-    void PlayerMove()
-    {
-        if (Input.GetKeyDown(KeyCode.W)) 
-        {
-            Debug.Log("W pressed");
-            move = move + new Vector2 (0, steps); 
-        }
-        if (Input.GetKeyDown(KeyCode.S))
-        {
-            Debug.Log("S pressed");
-            move = move + new Vector2(0, -steps);
-        }
-        if (Input.GetKeyDown(KeyCode.D))
-        {
-            Debug.Log("D pressed");
-            move = move + new Vector2(steps, 0);
-        }
-        if (Input.GetKeyDown(KeyCode.A))
-        {
-            Debug.Log("A pressed");
-            move = move + new Vector2(-steps, 0);
-        }
-    }
+    //void PlayerMove()
+    //{
+    //    move = move + new Vector2(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"));
+
+        
+    //}
 
     // Update is called once per frame
     void Update()
     {
-        PlayerMove();
-        transform.position = move;
+        
+        move = Input.GetAxis("Horizontal");
+        controller.velocity = new Vector2(move * speed, controller.velocity.y);
+
+
+        move = Input.GetAxis("Vertical");
+        controller.velocity = new Vector2(controller.velocity.x, move * speed);
+
     }
 }
