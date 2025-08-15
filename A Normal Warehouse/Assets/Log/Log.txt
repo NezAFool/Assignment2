@@ -6,3 +6,14 @@ Fixed Player Movement
 Added check to see if crate is in right position
 4/8/2025
 Added logic that checks if all the boxes in the level are in the right place.
+7/8/2025
+Added way to move to next level
+Added title screen
+11/8/2025
+Added Level 1 and Level 2.
+Added a lose conditon where if a real box is destroyed 
+or if a fake box is left when leaving the level resets the level.
+14/8/2025
+Added and finalized Level 3 and the sprites.
+15/8/2025
+Added final level and end screen.

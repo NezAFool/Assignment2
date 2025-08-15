@@ -2,33 +2,36 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class CheckRightPos : MonoBehaviour
 {
-    [SerializeField]
+    GameObject[] crates;
+    int scenceNo = 0;
     public CheckBox checkbox;
     GameObject[] endPoints;
     
     public int totalBox = 0;
     
-    private bool CorrectBox = false;
+    public bool CorrectBox = false;
     
 
     private void Awake()
     {
-        
-
+        Scene scene = SceneManager.GetActiveScene();
+        scenceNo = scene.buildIndex;
+        //sceneNo is the current scene Index
     }
-    void Start()
-    {
-        //checkbox.CheckIfwork();
-        
-    }
-
     // Update is called once per frame
     void FixedUpdate()
     {
-        endPoints = GameObject.FindGameObjectsWithTag("EmptySpots");
+        
+        crates = GameObject.FindGameObjectsWithTag("Crate");//Array of gameObjects with the tag Crate for number of crates in the level
+        endPoints = GameObject.FindGameObjectsWithTag("EmptySpots");//Array of gameObjects with the tag EmptySpots for the number of empty spots in the level
+        if (crates.Length < endPoints.Length) 
+        {
+            SceneManager.LoadScene(scenceNo);
+        }//Resets level if a real crate is destroyed
         foreach (GameObject end in endPoints)
         {
             CheckBox box = end.GetComponent<CheckBox>();
@@ -45,11 +48,15 @@ public class CheckRightPos : MonoBehaviour
                     break;
                 }
             }
-            if (CorrectBox) 
-            {
-                Debug.Log("All Boxes Placed");
-            }
-        }
-        
+        }//Checks if each end point has a crate on it. 
+        if (CorrectBox)
+        {
+            Debug.Log("All Boxes Placed");
+        }//Debug
+        if (Input.GetKeyDown(KeyCode.R)) 
+        {
+            SceneManager.LoadScene(scenceNo);
+        }//Restart level
+        ;
     }
 }

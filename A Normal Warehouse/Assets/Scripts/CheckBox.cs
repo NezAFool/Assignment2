@@ -7,7 +7,7 @@ public class CheckBox : MonoBehaviour
 {
     
     private bool CheckIfReal = false;
-    
+    //CheckIfReal is used to check if the end point has a crate on it
 
     public bool checkTotal() 
     {
@@ -16,22 +16,12 @@ public class CheckBox : MonoBehaviour
         
     }
 
-    public void CheckIfwork() 
-    {
-        Debug.Log("Recieved Script");
-    }
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.tag == "Crate")
         {
             CheckIfReal = true;
-            
-            checkTotal();
-        }
-        else if (collision.tag == "FakeBox")
-        {
-            SceneManager.LoadScene(0);
             
         }
     }
@@ -41,7 +31,6 @@ public class CheckBox : MonoBehaviour
         {
             CheckIfReal = false;
             
-            checkTotal();
             
         }
     }
